@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置数据源，阿里巴巴Druid数据库连接池 -->
+    <bean id="dataSource3307" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="jdbc:mysql://192.168.160.128:3307/test01?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+        <property name="filters" value="stat" />
+        <property name="maxActive" value="20" />
+        <property name="initialSize" value="1" />
+        <property name="maxWait" value="60000" />
+        <property name="minIdle" value="1" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxOpenPreparedStatements" value="20" />
+    </bean>
+
+    <!-- 配置数据源，阿里巴巴Druid数据库连接池 -->
+    <bean id="dataSource3308" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="jdbc:mysql://192.168.160.128:3308/test01?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+        <property name="filters" value="stat" />
+        <property name="maxActive" value="20" />
+        <property name="initialSize" value="1" />
+        <property name="maxWait" value="60000" />
+        <property name="minIdle" value="1" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxOpenPreparedStatements" value="20" />
+    </bean>
+
+    <!-- 配置数据源，阿里巴巴Druid数据库连接池 -->
+    <bean id="dataSource3309" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="jdbc:mysql://192.168.160.128:3309/test01?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+        <property name="filters" value="stat" />
+        <property name="maxActive" value="20" />
+        <property name="initialSize" value="1" />
+        <property name="maxWait" value="60000" />
+        <property name="minIdle" value="1" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxOpenPreparedStatements" value="20" />
+    </bean>
+
+    <!-- 配置数据源，阿里巴巴Druid数据库连接池 -->
+    <bean id="dataSource3310" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="jdbc:mysql://192.168.160.128:3310/test01?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+        <property name="filters" value="stat" />
+        <property name="maxActive" value="20" />
+        <property name="initialSize" value="1" />
+        <property name="maxWait" value="60000" />
+        <property name="minIdle" value="1" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxOpenPreparedStatements" value="20" />
+    </bean>
+
+    <!-- MyBatis sqlSessionFactory 配置 mybatis -->
+    <bean id="sqlSessionFactory3307" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3307" />
+    </bean>
+
+    <!-- MyBatis sqlSessionFactory 配置 mybatis -->
+    <bean id="sqlSessionFactory3308" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3308" />
+    </bean>
+
+    <!-- MyBatis sqlSessionFactory 配置 mybatis -->
+    <bean id="sqlSessionFactory3309" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3309" />
+    </bean>
+
+    <!-- MyBatis sqlSessionFactory 配置 mybatis -->
+    <bean id="sqlSessionFactory3310" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3310" />
+    </bean>
+
+
+
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bjpowernode.multidb.mapper.db3307" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3307"/>
+    </bean>
+
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bjpowernode.multidb.mapper.db3308" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3308"/>
+    </bean>
+
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bjpowernode.multidb.mapper.db3309" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3309"/>
+    </bean>
+
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bjpowernode.multidb.mapper.db3310" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3310"/>
+    </bean>
+
+    <!--核心思想：是基于mapper包的隔离实现多数据源，每个mapper包下对应一个数据库-->
+    
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置一个连接工厂 -->
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://192.168.160.128:61616"/>
+    </bean>
+
+    <!-- 配置一个sping JMS 监听器的容器 -->
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destinationName" value="springTopic"/>
+        <property name="messageListener" ref="receiverListener" />
+        <!--发送模式，true表示发布订阅模式，false表示点对点模式，默认是false所以默认是点对点模式-->
+        <property name="pubSubDomain" value="true"/>
+    </bean>
+
+    <!--自定义的消息监听器-->
+    <bean id="receiverListener" class="com.bjpowernode.activemq.listener.MyMessageListener"/>
+
+</beans>

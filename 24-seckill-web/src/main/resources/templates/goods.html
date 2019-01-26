@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>高并发秒杀项目实战</title>
+</head>
+
+<body th:inline="text" style="margin:50px;">
+
+<div th:each="goods : ${goodsList}" th:style="${goodsStat.count % 5 == 0 ? 'clear:both;float:left;width:290px;margin:10px;' : 'float:left;width:290px;margin:10px;'}">
+
+    <a th:href="@{'/seckill/goods/' + ${goods.id}}" th:target="'_blank'">
+        <img th:src="@{${goods.imageurl}}">
+    </a>
+    <br/>
+    <a th:href="@{'/seckill/goods/' + ${goods.id}}" th:target="'_blank'">
+        [[${goods.name}]]  [[${goods.namedesc}]]
+    </a>
+    <br/>
+    <span style="font-size:18px;color:red;font-weight:bold;">￥ [[${goods.price}]]</span> [[${goods.store}]] 件
+
+</div>
+
+</body>
+</html>

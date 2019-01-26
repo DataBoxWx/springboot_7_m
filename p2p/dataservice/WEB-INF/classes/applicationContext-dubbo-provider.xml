@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="dataservice"/>
+	
+	<dubbo:registry  protocol="zookeeper" address="192.168.226.128:2181"/>
+	
+	<dubbo:service interface="com.bjpowernode.p2p.service.UserInfoService" ref="userInfoServiceImpl" version="1.0.0" timeout="15000"/>
+	
+	<dubbo:service interface="com.bjpowernode.p2p.service.LoanInfoService" ref="loanInfoServiceImpl" version="1.0.0" timeout="15000"/>
+	
+	<dubbo:service interface="com.bjpowernode.p2p.service.BidInfoService" ref="bidInfoServiceImpl" version="1.0.0" timeout="25000"/>
+	
+	<dubbo:service interface="com.bjpowernode.p2p.service.IncomeRecordService" ref="incomeRecordServiceImpl" version="1.0.0" timeout="25000"/>
+	
+	<dubbo:service interface="com.bjpowernode.p2p.service.FinanceAccountService" ref="financeAccountServiceImpl" version="1.0.0" timeout="15000"/>
+	
+	<dubbo:service interface="com.bjpowernode.p2p.service.RechargeService" ref="rechargeServiceImpl" version="1.0.0" timeout="15000"/>
+	
+	<dubbo:service interface="com.bjpowernode.p2p.service.OnlyNumberService" ref="onlyNumberServiceImpl" version="1.0.0" timeout="15000"/>
+	
+</beans>

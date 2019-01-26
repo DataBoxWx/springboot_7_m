@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.p2p.admin.mapper.UserInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.bjpowernode.p2p.admin.model.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="staffId" jdbcType="INTEGER" property="staffId" />
+  </resultMap>
+  
+  <!-- 自定义结果集映射 -->
+  <resultMap id="CustomResultMap" type="com.bjpowernode.p2p.admin.model.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="staffId" jdbcType="INTEGER" property="staffId" />
+    <association property="staffInfo" javaType="com.bjpowernode.p2p.admin.model.StaffInfo">   
+    	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="phone" jdbcType="VARCHAR" property="phone" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="realName" jdbcType="VARCHAR" property="realname" />
+	    <result column="sex" jdbcType="INTEGER" property="sex" />
+	    <result column="staffNo" jdbcType="VARCHAR" property="staffno" />
+	    <result column="orgId" jdbcType="INTEGER" property="orgId" />
+	    <result column="jobTitle" jdbcType="VARCHAR" property="jobtitle" />
+	    <result column="hireDate" jdbcType="TIMESTAMP" property="hiredate" />
+	    <association property="orgInfo" javaType="com.bjpowernode.p2p.admin.model.OrgInfo">   
+	    	<id column="orgId" jdbcType="INTEGER" property="orgId" />
+	    	<result column="orgName" jdbcType="VARCHAR" property="orgName" />
+	    	<result column="pid" jdbcType="INTEGER" property="pid" />
+		</association>
+		<association property="pOrgInfo" javaType="com.bjpowernode.p2p.admin.model.POrgInfo">   
+	    	<id column="pOrgId" jdbcType="INTEGER" property="pOrgId" />
+	    	<result column="pOrgName" jdbcType="VARCHAR" property="pOrgName" />
+	    	<result column="ppid" jdbcType="INTEGER" property="ppid" />
+		</association>
+	</association>
+  </resultMap>
+  
+  <!-- 自定义结果集映射 -->
+  <resultMap id="CustomResultMap2" type="com.bjpowernode.p2p.admin.model.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="staffId" jdbcType="INTEGER" property="staffId" />
+    <association property="staffInfo" javaType="com.bjpowernode.p2p.admin.model.StaffInfo">   
+    	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="phone" jdbcType="VARCHAR" property="phone" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="realName" jdbcType="VARCHAR" property="realname" />
+	    <result column="sex" jdbcType="INTEGER" property="sex" />
+	    <result column="staffNo" jdbcType="VARCHAR" property="staffno" />
+	    <result column="orgId" jdbcType="INTEGER" property="orgId" />
+	    <result column="jobTitle" jdbcType="VARCHAR" property="jobtitle" />
+	    <result column="hireDate" jdbcType="TIMESTAMP" property="hiredate" />
+	</association>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, username, password, lastLoginTime, staffId
+  </sql>
+  
+  <!-- 自定义查询字段 -->
+  <sql id="Custom_Column_List">
+  	a.id, a.username, a.password, a.lastLoginTime, a.staffId,
+    b.id, b.phone, b.email, b.realName, b.sex, b.staffNo, b.orgId, b.jobTitle, b.hireDate, c.id orgId, c.orgName, c.pid,
+    d.id pOrgId, d.orgName pOrgName, d.id ppid
+  </sql>
+  
+  <!-- 自定义查询字段 -->
+  <sql id="Custom_Column_List2">
+  	a.id, a.username, a.password, a.lastLoginTime, a.staffId,
+    b.id, b.phone, b.email, b.realName, b.sex, b.staffNo, b.orgId, b.jobTitle, b.hireDate
+  </sql>
+  
+  <!-- 根据用户名和密码查询用户 -->
+  <select id="selectByUserNameAndPassword" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_user_info
+    where username = #{userName, jdbcType=VARCHAR} and password = #{password, jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 分页查询用户信息数据 -->
+  <select id="getUserInfoByPage" parameterType="java.util.Map" resultMap="CustomResultMap">
+    select 
+    <include refid="Custom_Column_List" />
+    from u_user_info a 
+    left join u_staff_info b
+		on a.staffId = b.id
+	left join u_org_info c
+		on b.orgId = c.id
+	left join u_org_info d
+		on c.pid = d.id
+    limit #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 分页查询用户信息总数 -->
+  <select id="getUserInfoByTotal" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from u_user_info a
+    left join u_staff_info b
+		on a.staffId = b.id
+	left join u_org_info c
+		on b.orgId = c.id
+	left join u_org_info d
+		on c.pid = d.id
+  </select>
+  
+  <!-- 分页查询用户信息数据 -->
+  <select id="getUserInfoById" parameterType="java.lang.Integer" resultMap="CustomResultMap2">
+    select 
+    <include refid="Custom_Column_List2" />
+    from u_user_info a 
+    left join u_staff_info b
+		on a.staffId = b.id
+    where a.id = #{userId, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 添加用户 -->
+  <insert id="addUser" parameterType="com.bjpowernode.p2p.admin.model.UserInfo">
+    insert into u_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="staffId != null">
+        staffId,
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 删除用户 -->
+  <delete id="deleteUser" parameterType="java.lang.Integer">
+  	delete from u_user_info where id = #{id, jdbcType=INTEGER}
+  </delete>
+</mapper>

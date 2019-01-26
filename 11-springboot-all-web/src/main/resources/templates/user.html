@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Title</title>
+</head>
+
+<body th:inline="text" th:style="'margin: 50px;'">
+
+    <form class="form-horizontal" role="form" th:action="@{/all/user}" th:method="${userInfo == null ? 'post' : 'put'}">
+        <div class="form-group">
+            <label for="nick" class="col-sm-2 control-label">昵称</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nick" name="nick" placeholder="请输入昵称" th:value="${userInfo?.nick}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label">手机</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入手机" th:value="${userInfo?.phone}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">邮箱</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱" th:value="${userInfo?.email}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">住址</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="address" name="address" placeholder="请输入住址" th:value="${userInfo?.address}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input th:type="hidden" id="id" name="id" th:value="${userInfo?.id}">
+                <button type="submit" class="btn btn-default">提 交</button>
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>

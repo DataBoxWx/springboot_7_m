@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.p2p.admin.mapper.CreditorRightsMapper">
+
+  <resultMap id="BaseResultMap" type="com.bjpowernode.p2p.admin.model.CreditorRights">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="apply_no" jdbcType="VARCHAR" property="applyNo" />
+    <result column="into_source" jdbcType="INTEGER" property="intoSource" />
+    <result column="apply_product" jdbcType="INTEGER" property="applyProduct" />
+    <result column="apply_money" jdbcType="DOUBLE" property="applyMoney" />
+    <result column="apply_term" jdbcType="INTEGER" property="applyTerm" />
+    <result column="apply_purpose" jdbcType="VARCHAR" property="applyPurpose" />
+    <result column="borrower_realname" jdbcType="VARCHAR" property="borrowerRealname" />
+    <result column="borrower_idcard" jdbcType="VARCHAR" property="borrowerIdcard" />
+    <result column="borrower_sex" jdbcType="INTEGER" property="borrowerSex" />
+    <result column="borrower_age" jdbcType="INTEGER" property="borrowerAge" />
+    <result column="borrower_education" jdbcType="INTEGER" property="borrowerEducation" />
+    <result column="borrower_marital" jdbcType="INTEGER" property="borrowerMarital" />
+    <result column="borrower_city" jdbcType="INTEGER" property="borrowerCity" />
+    <result column="borrower_present_address" jdbcType="VARCHAR" property="borrowerPresentAddress" />
+    <result column="borrower_bank_account" jdbcType="VARCHAR" property="borrowerBankAccount" />
+    <result column="borrower_open_bank" jdbcType="VARCHAR" property="borrowerOpenBank" />
+    <result column="borrower_house_count" jdbcType="INTEGER" property="borrowerHouseCount" />
+    <result column="borrower_car_count" jdbcType="INTEGER" property="borrowerCarCount" />
+    <result column="borrower_work" jdbcType="VARCHAR" property="borrowerWork" />
+    <result column="borrower_company_name" jdbcType="VARCHAR" property="borrowerCompanyName" />
+    <result column="borrower_company_address" jdbcType="VARCHAR" property="borrowerCompanyAddress" />
+    <result column="borrower_work_year" jdbcType="INTEGER" property="borrowerWorkYear" />
+    <result column="borrower_month_salary" jdbcType="DOUBLE" property="borrowerMonthSalary" />
+    <result column="borrower_credit_report_certification" jdbcType="INTEGER" property="borrowerCreditReportCertification" />
+    <result column="borrower_credit_report_certification_time" jdbcType="TIMESTAMP" property="borrowerCreditReportCertificationTime" />
+    <result column="borrower_idcard_certification" jdbcType="INTEGER" property="borrowerIdcardCertification" />
+    <result column="borrower_idcard_certification_time" jdbcType="TIMESTAMP" property="borrowerIdcardCertificationTime" />
+    <result column="borrower_work_certification" jdbcType="INTEGER" property="borrowerWorkCertification" />
+    <result column="borrower_work_certification_time" jdbcType="TIMESTAMP" property="borrowerWorkCertificationTime" />
+    <result column="borrower_income_certification" jdbcType="INTEGER" property="borrowerIncomeCertification" />
+    <result column="borrower_income_certification_time" jdbcType="TIMESTAMP" property="borrowerIncomeCertificationTime" />
+    <result column="borrower_house_certification" jdbcType="INTEGER" property="borrowerHouseCertification" />
+    <result column="borrower_house_certification_time" jdbcType="TIMESTAMP" property="borrowerHouseCertificationTime" />
+    <result column="borrower_field_certification" jdbcType="INTEGER" property="borrowerFieldCertification" />
+    <result column="borrower_field_certification_time" jdbcType="TIMESTAMP" property="borrowerFieldCertificationTime" />
+    <result column="audit_status" jdbcType="INTEGER" property="auditStatus" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="audit_loan_term" jdbcType="INTEGER" property="auditLoanTerm" />
+    <result column="audit_loan_money" jdbcType="DOUBLE" property="auditLoanMoney" />
+    <result column="contract_loan_money" jdbcType="DOUBLE" property="contractLoanMoney" />
+    <result column="consulting_fee" jdbcType="DOUBLE" property="consultingFee" />
+    <result column="audit_fee" jdbcType="DOUBLE" property="auditFee" />
+    <result column="service_fee" jdbcType="DOUBLE" property="serviceFee" />
+    <result column="access_fee" jdbcType="DOUBLE" property="accessFee" />
+    <result column="year_rate" jdbcType="DOUBLE" property="yearRate" />
+    <result column="put_money" jdbcType="DOUBLE" property="putMoney" />
+    <result column="creditor_rights_type" jdbcType="INTEGER" property="creditorRightsType" />
+    <result column="match_status" jdbcType="INTEGER" property="matchStatus" />
+    <result column="collect_status" jdbcType="INTEGER" property="collectStatus" />
+    <result column="match_finish_time" jdbcType="TIMESTAMP" property="matchFinishTime" />
+    <result column="collect_finish_time" jdbcType="TIMESTAMP" property="collectFinishTime" />
+    <result column="loan_contract_path" jdbcType="VARCHAR" property="loanContractPath" />
+  </resultMap>
+  
+  <!-- 根据债权ID查询用户、投资、产品、债权信息的Map -->
+  <resultMap id="myContractBaseResultMap" type="com.bjpowernode.p2p.admin.model.CreditorRightsContract">
+  	<id column="id" jdbcType="INTEGER" property="id" />
+  	<result column="apply_no" jdbcType="VARCHAR" property="applyNo" />
+    <result column="apply_purpose" jdbcType="VARCHAR" property="applyPurpose" />
+    <result column="audit_loan_money" jdbcType="DOUBLE" property="auditLoanMoney" />
+    <result column="audit_loan_term" jdbcType="INTEGER" property="auditLoanTerm" />
+    <result column="borrower_realname" jdbcType="VARCHAR" property="borrowerRealname" />
+    <result column="borrower_idcard" jdbcType="VARCHAR" property="borrowerIdcard" />
+    <result column="borrower_sex" jdbcType="VARCHAR" property="borrowerSex" />
+    <result column="borrower_present_address" jdbcType="VARCHAR" property="borrowerPresentAddress" />
+    <result column="collect_finish_time" jdbcType="TIMESTAMP" property="collectFinishTime" />
+	    <collection property="bidInfoList" ofType="com.bjpowernode.p2p.admin.model.BidInfo">
+	    	<id column="bidId" jdbcType="INTEGER" property="bidId" />
+	    	<result column="bidMoney" jdbcType="DOUBLE" property="bidMoney" />
+	    	<result column="userId" jdbcType="INTEGER" property="userId" />
+	    	<result column="phone" jdbcType="VARCHAR" property="phone" />
+	    	<result column="name" jdbcType="VARCHAR" property="name" />
+	    	<result column="idCard" jdbcType="VARCHAR" property="idCard" />
+	    </collection>  
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, apply_no, into_source, apply_product, apply_money, apply_term, apply_purpose, 
+    borrower_realname, borrower_idcard, borrower_sex, borrower_age, borrower_education, 
+    borrower_marital, borrower_city, borrower_present_address, borrower_bank_account, 
+    borrower_open_bank, borrower_house_count, borrower_car_count, borrower_work, borrower_company_name, 
+    borrower_company_address, borrower_work_year, borrower_month_salary, borrower_credit_report_certification, 
+    borrower_credit_report_certification_time, borrower_idcard_certification, borrower_idcard_certification_time, 
+    borrower_work_certification, borrower_work_certification_time, borrower_income_certification, 
+    borrower_income_certification_time, borrower_house_certification, borrower_house_certification_time, 
+    borrower_field_certification, borrower_field_certification_time, audit_status, audit_time, 
+    audit_loan_term, audit_loan_money, contract_loan_money, consulting_fee, audit_fee, 
+    service_fee, access_fee, year_rate, put_money, creditor_rights_type, match_status, collect_status,
+    match_finish_time, collect_finish_time, loan_contract_path
+  </sql>
+  
+  <!-- 分页查询债权信息 -->
+  <select id="getCreditorRightsByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_creditor_rights
+    where 1 = 1
+    <if test="creditorRightsType != null">
+    	and creditor_rights_type = #{creditorRightsType, jdbcType=INTEGER}
+    </if>
+    <if test="matchStatus != null">
+    	and match_status = #{matchStatus, jdbcType=INTEGER}
+    </if>
+    <if test="collectStatus != null">
+    	and collect_status = #{collectStatus, jdbcType=INTEGER}
+    </if>
+    limit #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 分页查询：债权信息总条数 -->
+  <select id="getCreditorRightsByTotal" resultType="java.lang.Integer">
+  	select count(*) from b_creditor_rights where 1 = 1
+  	<if test="creditorRightsType != null">
+    	and creditor_rights_type = #{creditorRightsType, jdbcType=INTEGER}
+    </if>
+    <if test="matchStatus != null">
+    	and match_status = #{matchStatus, jdbcType=INTEGER}
+    </if>
+    <if test="collectStatus != null">
+    	and collect_status = #{collectStatus, jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!-- 根据 债权匹配状态、募集状态、债权ID 查询债权信息 -->
+  <select id="getCreditorRightsByMatchStatus" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_creditor_rights
+    where 1 = 1
+    <if test="matchStatus != null">
+    	and match_status = #{matchStatus, jdbcType=INTEGER}
+    </if>
+    <if test="collectStatus != null">
+    	and collect_status = #{collectStatus, jdbcType=INTEGER}
+    </if>
+    <if test="creditorRightsId != null">
+    	and id = #{creditorRightsId, jdbcType=INTEGER}
+    </if>
+    <if test="creditorRightsId == null">
+    	and (loan_contract_path is null or loan_contract_path = '')
+    </if>
+  </select>
+  
+  <!-- 根据债权ID查询用户、投资、产品、债权信息 -->
+  <select id="getCreditorRightsForContract" parameterType="java.lang.Integer" resultMap="myContractBaseResultMap">
+    SELECT
+		r.id, r.apply_no, r.apply_purpose, r.audit_loan_money, 
+		r.audit_loan_term, r.borrower_realname, r.borrower_idcard, 
+		case 
+		when r.borrower_sex=1 then '男'
+		when r.borrower_sex=2 then '女'
+		else '未知' end borrower_sex,
+		r.borrower_present_address,
+		r.collect_finish_time,
+		bid.id bidId, bid.bidMoney, 
+		u.id userId, u.phone, u.name, u.idCard
+	FROM
+		p2padmin.b_creditor_rights r
+		LEFT JOIN p2padmin.b_loan_creditor_match m ON r.id = m.creditor_id
+		LEFT JOIN p2p2.b_loan_info loan ON m.loan_id = loan.id
+		LEFT JOIN p2p2.b_bid_info bid on loan.id = bid.loanId
+		LEFT JOIN p2p2.u_user_info u ON bid.uid = u.id
+	WHERE r.match_status = 1 and r.collect_status = 1
+	<if test="creditorId != null">
+		r.id = #{creditorId, jdbcType=INTEGER} 
+	</if>
+	<if test="creditorId == null">
+    	and (loan_contract_path is null or loan_contract_path = '')
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_creditor_rights
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from b_creditor_rights
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 添加录入债权 -->
+  <insert id="insertSelective" parameterType="com.bjpowernode.p2p.admin.model.CreditorRights">
+    insert into b_creditor_rights
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="applyNo != null">
+        apply_no,
+      </if>
+      <if test="intoSource != null">
+        into_source,
+      </if>
+      <if test="applyProduct != null">
+        apply_product,
+      </if>
+      <if test="applyMoney != null">
+        apply_money,
+      </if>
+      <if test="applyTerm != null">
+        apply_term,
+      </if>
+      <if test="applyPurpose != null">
+        apply_purpose,
+      </if>
+      <if test="borrowerRealname != null">
+        borrower_realname,
+      </if>
+      <if test="borrowerIdcard != null">
+        borrower_idcard,
+      </if>
+      <if test="borrowerSex != null">
+        borrower_sex,
+      </if>
+      <if test="borrowerAge != null">
+        borrower_age,
+      </if>
+      <if test="borrowerEducation != null">
+        borrower_education,
+      </if>
+      <if test="borrowerMarital != null">
+        borrower_marital,
+      </if>
+      <if test="borrowerCity != null">
+        borrower_city,
+      </if>
+      <if test="borrowerPresentAddress != null">
+        borrower_present_address,
+      </if>
+      <if test="borrowerBankAccount != null">
+        borrower_bank_account,
+      </if>
+      <if test="borrowerOpenBank != null">
+        borrower_open_bank,
+      </if>
+      <if test="borrowerHouseCount != null">
+        borrower_house_count,
+      </if>
+      <if test="borrowerCarCount != null">
+        borrower_car_count,
+      </if>
+      <if test="borrowerWork != null">
+        borrower_work,
+      </if>
+      <if test="borrowerCompanyName != null">
+        borrower_company_name,
+      </if>
+      <if test="borrowerCompanyAddress != null">
+        borrower_company_address,
+      </if>
+      <if test="borrowerWorkYear != null">
+        borrower_work_year,
+      </if>
+      <if test="borrowerMonthSalary != null">
+        borrower_month_salary,
+      </if>
+      <if test="borrowerCreditReportCertification != null">
+        borrower_credit_report_certification,
+      </if>
+      <if test="borrowerCreditReportCertificationTime != null">
+        borrower_credit_report_certification_time,
+      </if>
+      <if test="borrowerIdcardCertification != null">
+        borrower_idcard_certification,
+      </if>
+      <if test="borrowerIdcardCertificationTime != null">
+        borrower_idcard_certification_time,
+      </if>
+      <if test="borrowerWorkCertification != null">
+        borrower_work_certification,
+      </if>
+      <if test="borrowerWorkCertificationTime != null">
+        borrower_work_certification_time,
+      </if>
+      <if test="borrowerIncomeCertification != null">
+        borrower_income_certification,
+      </if>
+      <if test="borrowerIncomeCertificationTime != null">
+        borrower_income_certification_time,
+      </if>
+      <if test="borrowerHouseCertification != null">
+        borrower_house_certification,
+      </if>
+      <if test="borrowerHouseCertificationTime != null">
+        borrower_house_certification_time,
+      </if>
+      <if test="borrowerFieldCertification != null">
+        borrower_field_certification,
+      </if>
+      <if test="borrowerFieldCertificationTime != null">
+        borrower_field_certification_time,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="auditLoanTerm != null">
+        audit_loan_term,
+      </if>
+      <if test="auditLoanMoney != null">
+        audit_loan_money,
+      </if>
+      <if test="contractLoanMoney != null">
+        contract_loan_money,
+      </if>
+      <if test="consultingFee != null">
+        consulting_fee,
+      </if>
+      <if test="auditFee != null">
+        audit_fee,
+      </if>
+      <if test="serviceFee != null">
+        service_fee,
+      </if>
+      <if test="accessFee != null">
+        access_fee,
+      </if>
+      <if test="yearRate != null">
+        year_rate,
+      </if>
+      <if test="putMoney != null">
+        put_money,
+      </if>
+      <if test="creditorRightsType != null">
+        creditor_rights_type,
+      </if>
+      <if test="matchStatus != null">
+        match_status,
+      </if>
+      <if test="collectStatus != null">
+        collect_status,
+      </if>
+      <if test="matchFinishTime != null">
+        match_finish_time,
+      </if>
+      <if test="collectFinishTime != null">
+        collect_finish_time,
+      </if>
+      <if test="loanContractPath != null">
+        loan_contract_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyNo != null">
+        #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="intoSource != null">
+        #{intoSource,jdbcType=INTEGER},
+      </if>
+      <if test="applyProduct != null">
+        #{applyProduct,jdbcType=INTEGER},
+      </if>
+      <if test="applyMoney != null">
+        #{applyMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="applyTerm != null">
+        #{applyTerm,jdbcType=INTEGER},
+      </if>
+      <if test="applyPurpose != null">
+        #{applyPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerRealname != null">
+        #{borrowerRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerIdcard != null">
+        #{borrowerIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerSex != null">
+        #{borrowerSex,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerAge != null">
+        #{borrowerAge,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerEducation != null">
+        #{borrowerEducation,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerMarital != null">
+        #{borrowerMarital,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerCity != null">
+        #{borrowerCity,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerPresentAddress != null">
+        #{borrowerPresentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerBankAccount != null">
+        #{borrowerBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerOpenBank != null">
+        #{borrowerOpenBank,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerHouseCount != null">
+        #{borrowerHouseCount,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerCarCount != null">
+        #{borrowerCarCount,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerWork != null">
+        #{borrowerWork,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerCompanyName != null">
+        #{borrowerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerCompanyAddress != null">
+        #{borrowerCompanyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerWorkYear != null">
+        #{borrowerWorkYear,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerMonthSalary != null">
+        #{borrowerMonthSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowerCreditReportCertification != null">
+        #{borrowerCreditReportCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerCreditReportCertificationTime != null">
+        #{borrowerCreditReportCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerIdcardCertification != null">
+        #{borrowerIdcardCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerIdcardCertificationTime != null">
+        #{borrowerIdcardCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerWorkCertification != null">
+        #{borrowerWorkCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerWorkCertificationTime != null">
+        #{borrowerWorkCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerIncomeCertification != null">
+        #{borrowerIncomeCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerIncomeCertificationTime != null">
+        #{borrowerIncomeCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerHouseCertification != null">
+        #{borrowerHouseCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerHouseCertificationTime != null">
+        #{borrowerHouseCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerFieldCertification != null">
+        #{borrowerFieldCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerFieldCertificationTime != null">
+        #{borrowerFieldCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditLoanTerm != null">
+        #{auditLoanTerm,jdbcType=INTEGER},
+      </if>
+      <if test="auditLoanMoney != null">
+        #{auditLoanMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="contractLoanMoney != null">
+        #{contractLoanMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="consultingFee != null">
+        #{consultingFee,jdbcType=DOUBLE},
+      </if>
+      <if test="auditFee != null">
+        #{auditFee,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceFee != null">
+        #{serviceFee,jdbcType=DOUBLE},
+      </if>
+      <if test="accessFee != null">
+        #{accessFee,jdbcType=DOUBLE},
+      </if>
+      <if test="yearRate != null">
+        #{yearRate,jdbcType=DOUBLE},
+      </if>
+      <if test="putMoney != null">
+        #{putMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="creditorRightsType != null">
+        #{creditorRightsType,jdbcType=INTEGER},
+      </if>
+      <if test="matchStatus != null">
+        #{matchStatus,jdbcType=INTEGER},
+      </if>
+      <if test="collectStatus != null">
+        #{collectStatus,jdbcType=INTEGER},
+      </if>
+      <if test="matchFinishTime != null">
+        #{matchFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collectFinishTime != null">
+        #{collectFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanContractPath != null">
+        #{loanContractPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.p2p.admin.model.CreditorRights">
+    update b_creditor_rights
+    <set>
+      <if test="applyNo != null">
+        apply_no = #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="intoSource != null">
+        into_source = #{intoSource,jdbcType=INTEGER},
+      </if>
+      <if test="applyProduct != null">
+        apply_product = #{applyProduct,jdbcType=INTEGER},
+      </if>
+      <if test="applyMoney != null">
+        apply_money = #{applyMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="applyTerm != null">
+        apply_term = #{applyTerm,jdbcType=INTEGER},
+      </if>
+      <if test="applyPurpose != null">
+        apply_purpose = #{applyPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerRealname != null">
+        borrower_realname = #{borrowerRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerIdcard != null">
+        borrower_idcard = #{borrowerIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerSex != null">
+        borrower_sex = #{borrowerSex,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerAge != null">
+        borrower_age = #{borrowerAge,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerEducation != null">
+        borrower_education = #{borrowerEducation,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerMarital != null">
+        borrower_marital = #{borrowerMarital,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerCity != null">
+        borrower_city = #{borrowerCity,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerPresentAddress != null">
+        borrower_present_address = #{borrowerPresentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerBankAccount != null">
+        borrower_bank_account = #{borrowerBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerOpenBank != null">
+        borrower_open_bank = #{borrowerOpenBank,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerHouseCount != null">
+        borrower_house_count = #{borrowerHouseCount,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerCarCount != null">
+        borrower_car_count = #{borrowerCarCount,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerWork != null">
+        borrower_work = #{borrowerWork,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerCompanyName != null">
+        borrower_company_name = #{borrowerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerCompanyAddress != null">
+        borrower_company_address = #{borrowerCompanyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerWorkYear != null">
+        borrower_work_year = #{borrowerWorkYear,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerMonthSalary != null">
+        borrower_month_salary = #{borrowerMonthSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowerCreditReportCertification != null">
+        borrower_credit_report_certification = #{borrowerCreditReportCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerCreditReportCertificationTime != null">
+        borrower_credit_report_certification_time = #{borrowerCreditReportCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerIdcardCertification != null">
+        borrower_idcard_certification = #{borrowerIdcardCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerIdcardCertificationTime != null">
+        borrower_idcard_certification_time = #{borrowerIdcardCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerWorkCertification != null">
+        borrower_work_certification = #{borrowerWorkCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerWorkCertificationTime != null">
+        borrower_work_certification_time = #{borrowerWorkCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerIncomeCertification != null">
+        borrower_income_certification = #{borrowerIncomeCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerIncomeCertificationTime != null">
+        borrower_income_certification_time = #{borrowerIncomeCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerHouseCertification != null">
+        borrower_house_certification = #{borrowerHouseCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerHouseCertificationTime != null">
+        borrower_house_certification_time = #{borrowerHouseCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerFieldCertification != null">
+        borrower_field_certification = #{borrowerFieldCertification,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerFieldCertificationTime != null">
+        borrower_field_certification_time = #{borrowerFieldCertificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditLoanTerm != null">
+        audit_loan_term = #{auditLoanTerm,jdbcType=INTEGER},
+      </if>
+      <if test="auditLoanMoney != null">
+        audit_loan_money = #{auditLoanMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="contractLoanMoney != null">
+        contract_loan_money = #{contractLoanMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="consultingFee != null">
+        consulting_fee = #{consultingFee,jdbcType=DOUBLE},
+      </if>
+      <if test="auditFee != null">
+        audit_fee = #{auditFee,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceFee != null">
+        service_fee = #{serviceFee,jdbcType=DOUBLE},
+      </if>
+      <if test="accessFee != null">
+        access_fee = #{accessFee,jdbcType=DOUBLE},
+      </if>
+      <if test="yearRate != null">
+        year_rate = #{yearRate,jdbcType=DOUBLE},
+      </if>
+      <if test="putMoney != null">
+        put_money = #{putMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="creditorRightsType != null">
+        creditor_rights_type = #{creditorRightsType,jdbcType=INTEGER},
+      </if>
+      <if test="matchStatus != null">
+        match_status = #{matchStatus,jdbcType=INTEGER},
+      </if>
+      <if test="collectStatus != null">
+        collect_status = #{collectStatus,jdbcType=INTEGER},
+      </if>
+      <if test="matchFinishTime != null">
+        match_finish_time = #{matchFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collectFinishTime != null">
+        collect_finish_time = #{collectFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanContractPath != null">
+        loan_contract_path = #{loanContractPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

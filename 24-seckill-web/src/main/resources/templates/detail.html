@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>高并发秒杀项目实战</title>
+</head>
+
+<body th:inline="text" style="margin:80px;">
+
+    <!--左侧的div-->
+    <div style="float:left;">
+        <img th:src="@{${goods.imageurl}}">
+    </div>
+
+    <!--右侧的div-->
+    <div style="float:left;padding: 20px;">
+        <p>
+            [[${goods.name}]]  [[${goods.namedesc}]]
+        </p>
+        <p>
+            <span style="font-size:18px;color:red;font-weight:bold;">￥ [[${goods.price}]]</span>
+        </p>
+        <p>
+            剩余：[[${goods.store}]] 件
+        </p>
+
+        <!--秒杀的提示区域-->
+        <p id="seckillTip">
+
+        </p>
+    </div>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+
+    <script th:src="@{/js/jquery.countdown.min.js}"></script>
+
+    <script th:src="@{/js/seckill.js}"></script>
+
+    <script type="text/javascript" th:inline="javascript">
+        $(function() {
+            //页面的动态效果，对秒杀的初始化操作
+            seckillObj.path = [[${#request.getContextPath()}]];
+
+            var id = [[${goods.id}]];
+            var nowTime = [[${nowTime}]];
+            var startTime = [[${goods.starttime.getTime()}]];
+            var endTime = [[${goods.endtime.getTime()}]];
+            seckillObj.func.initDetail(id, nowTime, startTime, endTime);
+        })
+    </script>
+</body>
+</html>

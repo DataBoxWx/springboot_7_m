@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot 集成 Thymeleaf</title>
+</head>
+
+<body th:inline="text">
+
+展示controller里面model中的变量：msg <br/>
+
+jsp的el表达式： ${msg} <br/>
+
+thymeleaf展示：(它需要寄托在html的标签下实现数据的展示) <br/>
+<p th:text="${msg}">
+
+</p>
+
+展示用户对象数据: 标准变量表达式：<br/>
+<p>
+
+    <span th:text="${user.id}"></span>
+    <span th:text="${user.nick}"></span>
+    <span th:text="${user.phone}"></span>
+    <span th:text="${user.email}"></span>
+    <span th:text="${user.address}"></span>
+
+    <span th:text="${hello}"></span>
+</p>
+
+展示用户对象数据: 选择变量表达式：<br/>
+<p th:object="${user}">
+
+    <span th:text="*{id}"></span>
+    <span th:text="*{nick}"></span>
+    <span th:text="*{phone}"></span>
+    <span th:text="*{email}"></span>
+    <span th:text="*{address}"></span>
+
+    <span th:text="${hello}"></span>
+
+    <br/>
+
+    标准变量表达式 和 选择变量表达式 混合一起使用：<br/>
+
+    <span th:text="*{id}"></span>
+    <span th:text="${user.nick}"></span>
+    <span th:text="*{phone}"></span>
+    <span th:text="${user.email}"></span>
+    <span th:text="*{address}"></span>
+</p>
+
+<p>
+    选择变量表达式还可以如下使用：<br/>
+    <span th:text="*{user.id}"></span>
+    <span th:text="*{user.nick}"></span>
+    <span th:text="*{user.phone}"></span>
+    <span th:text="*{user.email}"></span>
+    <span th:text="*{user.address}"></span>
+</p>
+
+<p>
+    th: 开头的我们成为属性, 表达式需要和属性配置起来使用<br/>
+    <a href="info.html" th:href="@{'http://localhost:8080/boot/user?id='+${user.id}}">查看</a>
+
+    <a href="info.html" th:href="@{'boot/user?id='+${user.id}}">查看</a>
+
+    <a href="info.html" th:href="@{'/boot/user?id='+${user.id}}">查看</a> （前面的这个斜杠很重要，项目的上下文名会被自动添加）
+
+</p>
+
+<p>
+    <form th:action="@{/boot/user}" th:method="post">
+
+        <input id="username" name="username" value="123">
+        <input th:id="username" th:name="username" th:value="${user.nick}">
+        <input th:id="${hello}" name="username" value="">
+
+    </form>
+
+    <img th:src="@{/image/logo.jpg}">
+
+    <!--th:data-span-ref属性不存在-->
+
+    <span data-span-ref="137000000">
+
+    </span>
+
+    <span th:attr="data-span-ref=${user.phone}">
+
+    </span>
+    <br/>
+    <input type="text" id="phone" name="phone" th:text="${user.phone}"> <br/>
+
+    <input type="text" name="phone" th:value="${user.phone}">
+
+</p>
+
+循环List数据：<br/>
+<p>
+    <span th:each="user : ${userList}">
+
+        <span th:text="${userStat.count}"></span>
+
+        <span th:text="${user.id}"></span>
+        <span th:text="${user.nick}"></span>
+        <span th:text="${user.phone}"></span>
+        <span th:text="${user.email}"></span>
+        <span th:text="${user.address}"></span>
+        <br/>
+    </span>
+</p>
+
+循环Map数据：<br/>
+<p>
+    <span th:each="userKeyValue : ${userMap}">
+        <span th:text="${userKeyValue.key}"></span>
+        <span th:text="${userKeyValue.value.nick}"></span>
+        <span th:text="${userKeyValue.value.phone}"></span>
+        <span th:text="${userKeyValue.value.email}"></span>
+        <span th:text="${userKeyValue.value.address}"></span>
+        <br/>
+    </span>
+</p>
+
+循环Array数据：<br/>
+<p>
+    <span th:each="user : ${userArray}">
+        <span th:text="${user.nick}"></span>
+        <span th:text="${user.phone}"></span>
+        <span th:text="${user.email}"></span>
+        <span th:text="${user.address}"></span>
+        <br/>
+    </span>
+</p>
+
+复杂一点的集合数据展示：<br/>
+<p>
+    <span th:each="mapKeyValue : ${map}">
+        key：<span th:text="${mapKeyValue.key}"></span> <br/>
+        value: <br/>
+        <span th:each="user : ${mapKeyValue.value}">
+            <span th:text="${user.nick}"></span>
+            <span th:text="${user.phone}"></span>
+            <span th:text="${user.email}"></span>
+            <span th:text="${user.address}"></span>
+            <br/>
+        </span>
+    </span>
+</p>
+
+<p>
+    <span th:if="${sex == 1}">
+        性别：男
+    </span>
+    <span th:if="${sex == 2}">
+        性别：女
+    </span>
+
+
+    <span th:unless="${sex == 1}">
+        性别：男
+    </span>
+    <span th:unless="${sex == 2}">
+        性别：女
+    </span>
+
+    <span th:switch="${sex}">
+        <span th:case="1">男</span>
+        <span th:case="2">女</span>
+        <span th:case="*">未知</span>
+    </span>
+
+    <span th:onclick="'choujiang()'" th:style="'color: red;'">点击抽奖</span>
+</p>
+
+
+展示用户对象数据: 内联文本：<br/>
+<p>
+
+    <span th:text="${user.id}"></span>
+    <span th:text="${user.nick}"></span>
+    <span th:text="${user.phone}"></span>
+    <span th:text="${user.email}"></span>
+    <span th:text="${user.address}"></span>
+    <span th:text="${hello}"></span>
+    <br/>
+
+    内联文本展示user对象：<br/>
+    [[${user.id}]]
+    [[${user.nick}]]
+    [[${user.phone}]]
+    [[${user.email}]]
+    [[${user.address}]]
+</p>
+
+<p th:if="${userList == null}">
+    userlist为空
+</p>
+
+<p th:if="${userList != null}">
+    userlist不为空
+</p>
+
+<p>
+    <span th:text="'当前是第'+${sex}+'页, 共'+${sex}+'页'"></span>
+    <span th:text="|当前是第${sex}页, 共${sex}页|"></span>
+
+    <a th:href="@{'/api/user?id='+${user.id}+'&phone='+${user.phone}}">查看</a>
+    <a th:href="@{|/api/user?id=${user.id}&phone=${user.phone}|}">查看</a>
+
+    <span th:text="${sex == 1 ? '男' : '女'}"> </span>
+    <span th:style="${sex == 1 ? 'color:blue;' : 'color:red;'}">
+         要展示的信息
+    </span>
+</p>
+
+内置的对象：request， session <br/>
+<p>
+    <span th:text="${#request.getContextPath()}"></span>
+        [[${#request.getContextPath()}]]
+    <br/>
+
+    欢迎 <span th:text="${#session.getAttribute('user').phone}"> 登录
+    </span>
+
+    <span th:text="${#session.getLastAccessedTime()}">
+
+    </span>
+</p>
+
+<!--导入js文件-->
+<script th:src="@{/js/index.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+
+    //内联脚本给我们开启一个功能，让我们在js代码中可以获取后台的数据
+    function choujiang() {
+        var phone = [[${user.phone}]];
+
+        alert("恭喜 "+ phone +" ，中奖了~");
+    }
+</script>
+
+</body>
+</html>

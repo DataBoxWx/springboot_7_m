@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"> 
+
+	<!-- 采用默认的servlet处理静态资源 -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- spring mvc 注解支持 -->
+	<mvc:annotation-driven />
+	
+	<!-- spring mvc 扫描包下的controller -->
+	<context:component-scan base-package="com.bjpowernode.p2p.controller" />
+	
+	<!-- 配置拦截器拦截未登录请求 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/loan/**" />
+			<mvc:exclude-mapping path="/loan/login"/>
+			<mvc:exclude-mapping path="/loan/register"/>
+			<mvc:exclude-mapping path="/loan/phoneCheck"/>
+			<mvc:exclude-mapping path="/loan/verifyCaptcha"/>
+			<mvc:exclude-mapping path="/jcaptcha/captcha"/>
+			<mvc:exclude-mapping path="/loan/loan"/>
+			<mvc:exclude-mapping path="/loan/loanInfo"/>
+			<mvc:exclude-mapping path="/loan/borrower"/>
+			<mvc:exclude-mapping path="/loan/alipayBack"/>
+			<mvc:exclude-mapping path="/loan/alipayNotify"/>
+			<mvc:exclude-mapping path="/loan/stat"/>
+			<bean class="com.bjpowernode.p2p.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 配置视图解析器 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>

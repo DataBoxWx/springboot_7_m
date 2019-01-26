@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置一个连接工厂 -->
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://192.168.160.128:61616"/>
+    </bean>
+
+    <!-- 配置JmsTemplate -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <!--消息的目的地-->
+        <property name="defaultDestinationName" value="springTopic" />
+
+        <!--发送模式，true表示发布订阅模式，false表示点对点模式，默认是false所以默认是点对点模式-->
+        <property name="pubSubDomain" value="true"/>
+    </bean>
+
+</beans>

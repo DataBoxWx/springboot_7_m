@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="info">
+    <!--先定义所有的appender-->
+    <appenders>
+        <!--这个输出控制台的配置-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--这个都知道是输出日志的格式-->
+            <PatternLayout pattern="[p2p] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </Console>
+        <!--这个会打印出所有的信息-->
+        <RollingFile name="RollingFile" fileName="/opt/tomcat_p2p/logs/app.log" filePattern="/opt/tomcat_p2p/logs/app_%d{yyyy-MM-dd}_%i.log">>
+            <PatternLayout pattern="[p2p] %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="300MB"/>
+        </RollingFile>
+    </appenders>
+    <!--然后定义logger，只有定义了logger并引入appender，appender才会生效-->
+    <loggers>
+        <!--建立一个默认的root的logger-->
+        <root level="info">
+        	<appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </loggers>
+</configuration>

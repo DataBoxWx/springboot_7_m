@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+	   xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
+		http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd">
+	
+	<!-- 绑定webservice地址，需要与web.xml的地址对应 -->
+	<!-- 访问：http://localhost:8080/webservice-server-spring-web/services/helloService?wsdl -->
+    <wss:binding url="/services/sealService">
+        <wss:service>
+            <ws:service bean="#sealServiceImpl" />
+        </wss:service>
+    </wss:binding>
+    
+    <!-- <wss:binding> 可以配置多个 -->
+</beans>

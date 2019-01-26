@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>thymeeleaf</title>
+</head>
+<body>
+    <p th:text="${msg}"></p>
+
+      接受对象<br/>
+    　<span th:text="${user.id}"></span>
+    　<span th:text="${user.phone}"></span>
+    　<span th:text="${user.email}"></span>
+    　<span th:text="${user.address}"></span>
+    　<span th:text="${user.nick}"></span>
+<br/>
+    第二种方式接收对象<br/>
+    <div th:object="${user}">
+        <span th:text="*{id}"></span>
+        　<span th:text="*{phone}"></span>
+        　<span th:text="*{email}"></span>
+        　<span th:text="*{address}"></span>
+        　<span th:text="*{nick}"></span>
+    </div>
+
+静态链接地址:<br/>
+<p>
+    <a href="info.html" th:href="@{'http://localhost:8080/boot/user?id=' + ${user.id}}">查看</a><br/>
+
+    <a href="info.html" th:href="@{'boot/user?id=' + ${user.id}}">查看</a><br/>
+    <a href="info.html" th:href="@{'/boot/user?id=' + ${user.id}}">查看</a>(会自动添加上下文根)
+
+</p>
+
+<div>
+    <form th:action="@{/boot/user}">
+    </form>
+    <img th:src="@{/image/logo.jpg}" th:width="50" th:height="50">
+</div>
+    <!--导入js-->
+    <script th:src="@{/js/index.js}"></script>
+
+
+
+
+
+</body>
+</html>

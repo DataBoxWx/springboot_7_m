@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Title</title>
+</head>
+
+<body th:inline="text" th:style="'margin: 50px;'">
+
+    <table class="table table-striped">
+        <caption>
+            <a th:href="@{/all/user}">添加用户</a>
+        </caption>
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>昵称</th>
+            <th>手机</th>
+            <th>邮箱</th>
+            <th>住址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="userInfo : ${userInfoList}">
+            <td th:text="${userInfoStat.count}"></td>
+            <td th:text="${userInfo.nick}"></td>
+            <td>[[${userInfo.phone}]]</td>
+            <td th:text="${userInfo.email}"></td>
+            <td th:text="${userInfo.address}"></td>
+            <td>
+                <a th:href="@{'/all/user/' + ${userInfo.id}}">修改</a>
+                <a th:href="'javascript:deleteUser(' + ${userInfo.id} + ')'">删除</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="6" th:style="'text-align: center;'">
+                <span th:if="${p le 1}">
+                    首页
+                    上一页
+                </span>
+
+                <span th:if="${p gt 1}">
+                    <a th:href="@{'/all/users'}">首页</a>
+                    <a th:href="@{'/all/users?p='+ ${p - 1}}">上一页</a>
+                </span>
+
+                <span th:if="${p lt totalPages}">
+                    <a th:href="@{'/all/users?p='+ ${p + 1}}">下一页</a>
+                    <a th:href="@{'/all/users?p='+ ${totalPages}}">尾页</a>
+                </span>
+
+                <span th:if="${p ge totalPages}">
+                    下一页
+                    尾页
+                </span>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <!--用一个form提交我们的delete请求-->
+    <form id="deleteForm" th:method="delete" th:style="'display: none;'"></form>
+
+    <script th:type="'text/javascript'" th:inline="javascript">
+        function deleteUser(id) {
+            alert(id);
+
+            //获取项目的访问上下文根路径
+            var contextPath = [[${#request.getContextPath()}]];
+
+            //把form表单设置action的提交路径
+            $("#deleteForm").attr("action", contextPath+"/all/user/"+id);
+
+            $("#deleteForm").submit();
+        }
+    </script>
+</body>
+</html>
